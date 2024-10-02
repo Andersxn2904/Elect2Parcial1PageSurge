@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Technologies Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .quiz-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .question {
+            font-size: 1.2rem;
+        }
+        .choices {
+            list-style: none;
+            padding: 0;
+        }
+        .choices li {
+            margin: 10px 0;
+        }
+        .choices li button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .choices li button:hover {
+            background-color: #0056b3;
+        }
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .progress-bar-inner {
+            height: 10px;
+            background-color: #28a745;
+            width: 0;
+        }
+        .dark-mode {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .dark-mode input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2>Web Technologies Quiz</h2>
+    <div class="question">What does HTML stand for?</div>
+    <ul class="choices">
+        <li><button onclick="checkAnswer(this)">HyperText Markup Language</button></li>
+        <li><button onclick="checkAnswer(this)">Home Tool Markup Language</button></li>
+        <li><button onclick="checkAnswer(this)">Hyperlink and Text Management Language</button></li>
+    </ul>
+    <div class="progress-bar">
+        <div class="progress-bar-inner" id="progress"></div>
+    </div>
+    <div id="score"></div>
+</div>
+
+<div class="dark-mode">
+    <label>
+        <input type="checkbox" id="themeToggle"> Dark Mode
+    </label>
+</div>
+
+<script>
+    let score = 0;
+    let questionCount = 1;
+    const totalQuestions = 3;  // Add more questions as needed
+    const progressBar = document.getElementById('progress');
+
+    function checkAnswer(button) {
+        if (button.innerText === 'HyperText Markup Language') {
+            score++;
+        }
+        if (questionCount < totalQuestions) {
+            questionCount++;
+            updateQuiz();
+        } else {
+            document.querySelector('.question').innerText = 'Quiz Over! Your score: ' + score + '/' + totalQuestions;
+            document.querySelector('.choices').style.display = 'none';
+        }
+        updateProgress();
+    }
+
+    function updateQuiz() {
+        // Update with new question, for example
+        document.querySelector('.question').innerText = 'What does CSS stand for?';
+        document.querySelectorAll('.choices li button')[0].innerText = 'Cascading Style Sheets';
+        document.querySelectorAll('.choices li button')[1].innerText = 'Creative Style Sheets';
+        document.querySelectorAll('.choices li button')[2].innerText = 'Computer Style Sheets';
+    }
+
+    function updateProgress() {
+        progressBar.style.width = (questionCount / totalQuestions) * 100 + '%';
+    }
+
+    document.getElementById('themeToggle').addEventListener('change', function() {
+        if (this.checked) {
+            document.body.style.backgroundColor = '#333';
+            document.body.style.color = '#f0f0f0';
+        } else {
+            document.body.style.backgroundColor = '#f0f0f0';
+            document.body.style.color = '#333';
+        }
+    });
+</script>
+
+</body>
+</html>
